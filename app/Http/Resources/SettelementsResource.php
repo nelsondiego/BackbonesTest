@@ -24,4 +24,6 @@ class SettelementsResource extends JsonResource
             ]
         ];
     }
+
+    
 }

@@ -31,8 +31,5 @@ class ZipcodeResource extends JsonResource
         ];
     }
 
-    public function boot()
-    {
-        JsonResource::withoutWrapping();
-    }
+    
 }
