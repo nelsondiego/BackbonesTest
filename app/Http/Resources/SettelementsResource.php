@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\Txf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SettelementsResource extends JsonResource
 {
+    use Txf;
     /**
      * Transform the resource into an array.
      *
@@ -17,8 +19,8 @@ class SettelementsResource extends JsonResource
     {
         return [
             'key' => $this->key,
-            'name' => Str::upper($this->name),
-            'zone_type' => Str::upper($this->zone_type),
+            'name' => Txf::format($this->name),
+            'zone_type' => Txf::format($this->zone_type),
             'settlement_type' => [
                 'name' => $this->settlement_type_name,
             ]

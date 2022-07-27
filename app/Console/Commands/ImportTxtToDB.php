@@ -14,7 +14,9 @@ class ImportTxtToDB extends Command
      *
      * @var string
      */
-    protected $signature = 'import-txt-to-db';
+    protected $signature = 'import-txt-to-db {
+        --path= : the path of the file
+    }';
 
     /**
      * The console command description.
@@ -33,7 +35,8 @@ class ImportTxtToDB extends Command
         $this->info('PREPARANDO');
         $this->info('CARGANDO');
 
-        $file = 'https://firebasestorage.googleapis.com/v0/b/cloud-project-e3d94.appspot.com/o/CPdescarga.txt?alt=media&token=1e02012c-cdbb-45bc-8283-e5aed4584287';
+        $file = $this->option('path');
+        
         $gestor = @fopen($file, "r");
 
         if ($gestor) {
@@ -47,9 +50,9 @@ class ImportTxtToDB extends Command
                     $zipcode = Zipcode::firstOrCreate(
                         ['zip_code' => $line_exploded[0],],
                         [
-                            'locality'            => utf8_encode($line_exploded[4]),
+                            'locality'            => utf8_encode($line_exploded[5]),
                             'federal_entity_key'  => $line_exploded[7],
-                            'federal_entity_name' => utf8_encode($line_exploded[5]),
+                            'federal_entity_name' => utf8_encode($line_exploded[4]),
                             'federal_entity_code' => null,
                             'municipality_key'    => $line_exploded[11],
                             'municipality_name'   => utf8_encode($line_exploded[3]),

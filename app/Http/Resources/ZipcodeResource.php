@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\Txf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ZipcodeResource extends JsonResource
 {
+    use Txf;
     /**
      * Transform the resource into an array.
      *
@@ -17,16 +19,16 @@ class ZipcodeResource extends JsonResource
     {
         return [
             'zip_code' => $this->zip_code,
-            'locality'=> Str::upper($this->locality),
+            'locality'=> Txf::format($this->locality),
             'federal_entity' => [
                 'key' => $this->federal_entity_key,
-                'name' => Str::upper($this->federal_entity_name),
+                'name' => Txf::format($this->federal_entity_name),
                 'code' => $this->federal_entity_code,
             ],
             'settlements' => SettelementsResource::collection($this->settlements),
             'municipality' => [
                 'key' => $this->municipality_key,
-                'name' => Str::upper($this->municipality_name)
+                'name' => Txf::format($this->municipality_name)
             ]
         ];
     }
